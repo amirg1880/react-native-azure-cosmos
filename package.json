@@ -11,7 +11,8 @@
     "url": "git+https://github.com/blazerroad/react-native-azure-cosmos.git"
   },
   "dependencies": {
-    "crypto-js": "^3.2.0"
+    "crypto-js": "^3.2.0",
+    "react-native-fetch-cache": "^1.0.0"
   },
   "keywords": [
     "react-native",
