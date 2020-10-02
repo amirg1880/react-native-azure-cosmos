@@ -3,7 +3,7 @@ import { IResolverElement, Resolver } from './resolver'
 import { cache } from 'react-native-fetch-cache/cacheResolver'
 
 
-type RequestType =
+ export type RequestType =
     | 'Query'
     | 'Insert'
     | 'Update'
@@ -70,7 +70,7 @@ export const initAzureCosmos = (config: AzureConfig) => {
     AzureCosmosLocator.config = config;
 }
 
-interface BaseFetchParam {
+export interface BaseFetchParam {
     dbname?: string,
     col: string,
     body: any,
@@ -78,11 +78,11 @@ interface BaseFetchParam {
     partitionKey: string,
     stateName: string
 }
-interface UpdateFetchParam extends BaseFetchParam {
+export interface UpdateFetchParam extends BaseFetchParam {
     id: string
 }
 
-interface SpFetchParam extends BaseFetchParam {
+export interface SpFetchParam extends BaseFetchParam {
     spname: string
 }
 
