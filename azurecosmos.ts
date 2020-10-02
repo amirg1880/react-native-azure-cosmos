@@ -2,13 +2,13 @@ import { AzureToken, AzureQuieryHeader, AzureDocHeader } from './headers'
 import { IResolverElement, Resolver } from './resolver'
 import { cache } from 'react-native-fetch-cache/cacheResolver'
 
-type RequestType =
+export type RequestType =
     | 'Query'
     | 'Insert'
     | 'Update'
     | 'Sp'
-    |'AllCols'
-    |'ById'
+    | 'AllCols'
+    | 'ById'
     ;
 
 
@@ -74,7 +74,7 @@ export const initAzureCosmos = (config: AzureConfig) => {
     AzureCosmosLocator.config = config;
 }
 
-interface BaseFetchParam {
+export interface BaseFetchParam {
     dbname?: string,
     col: string,
     body: any,
@@ -82,13 +82,70 @@ interface BaseFetchParam {
     partitionKey: string,
     actionName: string
 }
-interface UpdateFetchParam extends BaseFetchParam {
+export interface UpdateFetchParam extends BaseFetchParam {
     id: string
 }
 
-interface SpFetchParam extends BaseFetchParam {
+export interface SpFetchParam extends BaseFetchParam {
     spname: string
 }
+
+export class BaseFetchParamDefualt implements BaseFetchParam {
+    dbname?: string;
+    col: string;
+    body: any;
+    type: RequestType;
+    partitionKey: string;
+    actionName: string
+    constructor(col: string, body: any, type: RequestType, partitionKey: string, actionName: string, dbname: string) {
+        this.col = col;
+        this.body = body;
+        this.type = type;
+        this.partitionKey = partitionKey;
+        this.actionName = actionName;
+        this.dbname = dbname
+    }
+}
+
+export class UpdateFetchParamDefault implements UpdateFetchParam {
+    dbname?: string;
+    col: string;
+    body: any;
+    type: RequestType;
+    partitionKey: string;
+    actionName: string
+    id: string
+    constructor(col: string, body: any, type: RequestType, partitionKey: string, actionName: string, id: string, dbname: string) {
+        this.col = col;
+        this.body = body;
+        this.type = type;
+        this.partitionKey = partitionKey;
+        this.actionName = actionName;
+        this.dbname = dbname;
+        this.id = id;
+    }
+}
+
+
+export class SpFetchParamDefault implements SpFetchParam {
+    dbname?: string;
+    col: string;
+    body: any;
+    type: RequestType;
+    partitionKey: string;
+    actionName: string
+    spname: string
+    constructor(col: string, body: any, type: RequestType, partitionKey: string, actionName: string, spname: string, dbname: string) {
+        this.col = col;
+        this.body = body;
+        this.type = type;
+        this.partitionKey = partitionKey;
+        this.actionName = actionName;
+        this.dbname = dbname;
+        this.spname = spname;
+    }
+}
+
 
 
 class AzureQuiry extends BaseAzureCosmosElementResolver<BaseFetchParam> {
