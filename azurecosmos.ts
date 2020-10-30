@@ -13,7 +13,7 @@ export type RequestType =
 
 
 
-interface AzureConfig {
+export interface AzureConfig {
     masterKey: string;
     version: string;
     dbUri: string;
